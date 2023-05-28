@@ -1,12 +1,12 @@
 FROM --platform=$TARGETOS/$TARGETARCH nginx:latest
 
-ENV         DEBIAN_FRONTEND noninteractive
+ENV DEBIAN_FRONTEND noninteractive
 
 RUN apt update
 RUN apt install -y software-properties-common
 RUN add-apt-repository ppa:ondrej/php 
 
-RUN apt update && apt -y install php8.1 php8.1-{common,cli,gd,mysql,mbstring,bcmath,xml,fpm,curl,zip,fpm}
+# RUN apt update && apt -y install php8.1 php8.1-{common,cli,gd,mysql,mbstring,bcmath,xml,fpm,curl,zip,fpm}
 RUN useradd -m -d /home/container container
 
 USER container
