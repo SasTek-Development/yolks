@@ -1,5 +1,7 @@
 FROM --platform=$TARGETOS/$TARGETARCH nginx:latest
 
+ENV         DEBIAN_FRONTEND noninteractive
+
 RUN apt update
 RUN apt install -y software-properties-common
 RUN add-apt-repository ppa:ondrej/php 
