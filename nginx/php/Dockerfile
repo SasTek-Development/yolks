@@ -30,7 +30,7 @@ ENV USER=container HOME=/home/container
 WORKDIR /home/container
 
 # Copy required nginx config
-COPY ./../nginx.conf /etc/nginx/nginx.conf
+COPY ./nginx.conf /etc/nginx/nginx.conf
 
 # Setup entrypoint
 COPY        ./entrypoint.sh /entrypoint.sh
