@@ -11,10 +11,14 @@ on:
       - mariadb/**
 jobs:
   push:
-    name: "yolks:nginx"
+    name: "yolks:nginx_${{ matrix.tag }}"
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
+      matrix:
+        tag:
+          - 'latest'
+          - 'php'
     steps:
       - uses: actions/checkout@v3
       - uses: docker/setup-qemu-action@v2
@@ -29,8 +33,8 @@ jobs:
       - uses: docker/build-push-action@v4
         with:
           context: ./nginx
-          file: ./nginx/latest/Dockerfile
+          file: ./nginx/${{ matrix.tag }}/Dockerfile
           platforms: linux/amd64, linux/arm64
           push: true
           tags: |
-            ghcr.io/sastek-development/yolks:nginx
+            ghcr.io/sastek-development/yolks:nginx_${{ matrix.tag }}

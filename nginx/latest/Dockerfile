@@ -3,17 +3,18 @@ FROM --platform=$TARGETOS/$TARGETARCH nginx:latest
 ENV DEBIAN_FRONTEND noninteractive
 
 RUN apt update
-RUN apt install -y software-properties-common iproute2 
-RUN add-apt-repository ppa:ondrej/php 
+RUN apt install -y iproute2 
 
-RUN apt update && apt -y install php8.2 php8.2-{common,cli,gd,mysql,mbstring,bcmath,xml,fpm,curl,zip,fpm}
+# Setup user
 RUN useradd -m -d /home/container container
 
 USER container
 ENV USER=container HOME=/home/container
 WORKDIR /home/container
 
+# Copy required nginx config
 COPY ./../nginx.conf /etc/nginx/nginx.conf
 
-COPY        ./../entrypoint.sh /entrypoint.sh
+# Setup entrypoint
+COPY        ./entrypoint.sh /entrypoint.sh
 CMD         [ "/bin/bash", "/entrypoint.sh" ]
